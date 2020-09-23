@@ -22,7 +22,7 @@ public class GestioneCC {
 				Double importo = input.nextDouble();
 				Boolean risultato = cc.controlloSaldo(importo);
 				if(risultato==false){
-					System.out.println("Il prelievo non è andato a buon fine per mancanza di fondi!");
+					System.out.println("Il prelievo non Ã¨ andato a buon fine per mancanza di fondi!");
 				}else cc.prelievo(importo);
 			}else if(risposta==2) {
 				System.out.print("Inserisci l'importo da versare: ");
