@@ -1,5 +1,3 @@
-package corsoJavaAndroid;
-
 
 public class CodiceFiscale {
 //Attributi
