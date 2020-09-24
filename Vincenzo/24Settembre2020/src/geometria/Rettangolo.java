@@ -4,6 +4,7 @@ public class Rettangolo {
 	private double altezza;
 	private double base;
 
+	
 	public Rettangolo(double b, double a) {
 		altezza = a;
 		base = b;
