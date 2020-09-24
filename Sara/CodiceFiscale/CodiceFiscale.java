@@ -13,7 +13,7 @@ public CodiceFiscale() {
 
 public int annoNascita(String cf) {
 	 annoNascita=Integer.parseInt(cf.substring(6, 8));
-	if(annoNascita>20) annoNascita +=1900;
+	if(annoNascita>=20) annoNascita +=1900;
 	else annoNascita+=2000;
 	return annoNascita;
 	
