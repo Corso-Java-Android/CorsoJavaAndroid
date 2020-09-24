@@ -21,7 +21,11 @@ public class CodiceFiscale {
 	}
 	
 	public String getMese() {
-		switch (cf.charAt(8)) {
+		return conversioneMese(cf.charAt(8));
+	}
+	
+	private static String conversioneMese(char charAt) {
+		switch (charAt) {
 		case 'A':
 			return "01";
 		case 'B':
@@ -50,7 +54,7 @@ public class CodiceFiscale {
 			return "errore!";
 		}
 	}
-	
+
 	public String getSesso() {
 		if(getGiorno()<=31)
 			return "M";
