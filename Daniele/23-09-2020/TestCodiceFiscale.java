@@ -8,7 +8,6 @@ public class TestCodiceFiscale {
 		System.out.println("Inserisci codice fiscale: ");
 		String cf=tastiera.next();
 		cf=cf.toUpperCase();
-		System.out.println(cf);
 		CodiceFiscale utente=new CodiceFiscale(cf);
 		if(utente.isValid()) {
 			System.out.println(utente);
