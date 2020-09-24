@@ -1,29 +1,22 @@
-import java.util.Scanner;
+package bootstrap;
+import geometria.Rettangolo;
+import geometria.Cerchio;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
 		
-		Calcolatrice cal = new Calcolatrice();
-		
-		Scanner sc = new Scanner(System.in);
-		
-		System.out.println("Inserisci il primo numero: ");
-		
-		double primoNumero = sc.nextDouble();
-		
-		System.out.println("Inserisci il secondo numero: ");
-		
-		double secondoNumero = sc.nextDouble();
+		Rettangolo rett = new Rettangolo(10, 10);
 		
 		
-		System.out.println("La somma è: " + cal.somma(primoNumero, secondoNumero));
-		System.out.println("La differenza è: " + cal.sottrazione(primoNumero, secondoNumero));
-		System.out.println("La moltiplicazione è : " + cal.moltiplicazine(primoNumero, secondoNumero));
-		System.out.println("La divisione è: " + cal.divisione(primoNumero, secondoNumero));
+		Cerchio cerch = new Cerchio(10.5);
 		
-		sc.close();	
+		
+		System.out.println("Il raggio è: "+ cerch.getRaggio() + 
+						   "\nIl diametro è: " + cerch.diametro() + 
+						   "\nLa circonferenza è: " + cerch.circonferenza() + 
+						   "\nL'area è: " + cerch.area());
 	}
 
 }
