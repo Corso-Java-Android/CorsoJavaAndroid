@@ -11,7 +11,6 @@ public class Rettangolo extends FiguraGeometrica {
 
 	@Override
 	public double perimetro() {
-		// TODO Auto-generated method stub
 		return (base*2)+(altezza*2);
 	}
 
