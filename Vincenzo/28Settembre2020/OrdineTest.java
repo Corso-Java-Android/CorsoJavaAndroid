@@ -3,7 +3,7 @@ package casuale;
 public class OrdineTest {
 
 	public static void main(String[] args) {
-		String[] nominativi = {"Alessio Angelo Liotta", "Davide Pasquali", "Enrico Macrì", "Tommaso Segato", "Daniele Vittore", "Danis Moretta", "Erika Corallo", "Gabriele Lo Piccolo", "Giovanni Battista Cortese", "Karol Khaira", "Olivia Nadia Djeugove", "Sara Vizzaclaro", "Valentina De Miglio", "Vincenzo Santoro"};
+		String[] nominativi = {"Alessio Angelo Liotta", "Davide Pasquali", "Enrico MacrÃ¬", "Tommaso Segato", "Daniele Vittore", "Danis Moretta", "Erika Corallo", "Gabriele Lo Piccolo", "Giovanni Battista Cortese", "Karol Khaira", "Olivia Nadia Djeugove", "Sara Vizzaclaro", "Valentina De Miglio", "Vincenzo Santoro"};
 		OrdineCasualeGenerator generatore = new OrdineCasualeGenerator(nominativi);
 		System.out.println("Ci sono "+nominativi.length+" nominativi");
 		for(int i=0;i<nominativi.length;i++)	//nominativi in ordine
