@@ -20,10 +20,10 @@ public class OrdineTest {
 		for(int i=0;i<nominativi.length;i++)	//nominativi in ordine
 			System.out.println(nominativi[i]);
 		System.out.println("===============");
-		String[] nominativi3 = generatore.nominativi();	//ordinamento casuale
-		System.out.println("Dopo lo shuffle ci sono "+nominativi3.length+" nominativi");
+		nominativi2 = generatore.nominativi();	//ordinamento casuale
+		System.out.println("Dopo lo shuffle ci sono "+nominativi2.length+" nominativi");
 		for(int i=0;i<nominativi2.length;i++) {	//nominativi in ordine casuale
-			System.out.println(nominativi3[i]);
+			System.out.println(nominativi2[i]);
 		}
 
 	}

@@ -10,7 +10,7 @@ public class OrdineCasualeGenerator {
 	}
 	
 	public String[] nominativi() {
-		Random rand = new Random(System.currentTimeMillis());
+		Random rand = new Random(System.nanoTime());
 		for(int i=0;i<nominativi.length;i++) {
 			int index = rand.nextInt(nominativi.length);	//genero un indice casuale
 			String temp = nominativi[index];	//salvo il contenuto di index in una var. temporanea
