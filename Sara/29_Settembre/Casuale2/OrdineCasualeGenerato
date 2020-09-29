@@ -1,0 +1,79 @@
+package Casuale;
+
+import java.util.Random;
+import java.util.List;
+import java.util.ArrayList;
+
+public class OrdineCasualeGenerato {
+
+	public List <String>names=new <String> ArrayList();
+	
+
+/**
+ * Metodo costruttore
+ * @param list
+ */
+	public OrdineCasualeGenerato(List <String> list){
+		
+		names=list;
+	
+	}
+/**
+ * Metodo che restiusce la lista di nomi
+ * @return
+ */
+	public List <String>getListNames(){return names;}
+
+
+/**
+ * Metodo per la stampa in ordine casuale di una stringa di nomi
+ */
+public void printOrdineCasuale(){
+	
+	
+	
+	for(int i=names.size(), cont=0 ; i>0; i--,cont++){
+		
+		int casual= getRandomInt();
+		
+		printElement(cont,casual);
+		
+		removeName(casual);
+		
+	}
+
+	
+
+}
+
+/**
+ * Metodo che restituisce un numero intero casuale
+ * @return un numero intero casuale
+ */
+	public int getRandomInt(){
+		Random r= new Random(System.currentTimeMillis());
+		return r.nextInt(names.size());
+	}
+/**
+ * Metodo che elimina un elemento dalla lista tramite un indice
+ * @param index
+ */
+	public void removeName(int index){
+		names.remove(index);
+	}
+/**
+ * 	Metodo per la stampa di un elemento
+ * @param cont stampa a video un numero da 1 a n
+ * @param index stampa l'elemento che si trova all'interno di una lista
+ */
+	public void printElement(int cont, int index){
+		System.out.println((cont+1)+") "+names.get(index));
+	}
+/**
+ * Metdo che stampa a video un separatore	
+ */
+	public void printSeparator(){
+		 System.out.println("*****************************");
+	}
+}
+
