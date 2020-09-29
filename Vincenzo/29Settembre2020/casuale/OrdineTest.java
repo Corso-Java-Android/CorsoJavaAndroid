@@ -1,6 +1,8 @@
 package casuale;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class OrdineTest {
@@ -22,7 +24,8 @@ public class OrdineTest {
 			System.out.println(nominativi2.get(i));
 		}
 		System.out.println("===============");
-		List<String> newNominativi = Arrays.asList(nomi.clone());
+		List<String> newNominativi = new ArrayList<String>();
+		Collections.addAll(newNominativi, nomi);
 		generatore = new OrdineCasualeGenerator(newNominativi);
 		System.out.println("Ci sono "+newNominativi.size()+" nominativi");
 		for(int i=0;i<newNominativi.size();i++) {	//nominativi in ordine
