@@ -30,3 +30,9 @@ insert into Person values('Lisa', 75, 87000);
 
 /* elencare padre figlio e stipendio del figlio */
 select father, child, income from FatherChild f, Person p where f.child = p.name;
+
+/* elenca padre figlio e stipendio del padre */
+select p.name, income as father_income, f.child from Person p, FatherChild f where f.father = p.name;
+
+/*elencare padre, stipendio del padre, figlio, stipendio figlio*/
+select p.name, p.income as father_income, f.child, p2.income as child_income from Person p, FatherChild f, Person p2 where f.father = p.name and f.child = p2.name;
