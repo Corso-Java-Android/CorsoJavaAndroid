@@ -27,3 +27,6 @@ insert into Person values('Frank', 60, 20000);
 insert into Person values('Kim', 30, 41000);
 insert into Person values('Mike', 85, 35000);
 insert into Person values('Lisa', 75, 87000);
+
+/* elencare padre figlio e stipendio del figlio */
+select father, child, income from FatherChild f, Person p where f.child = p.name;
