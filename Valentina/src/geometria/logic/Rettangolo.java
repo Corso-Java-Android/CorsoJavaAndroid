@@ -1,6 +1,6 @@
 package geometria.logic;
 
-public class Rettangolo {
+public class Rettangolo extends FiguraGeometrica{
     private double base;
     private double altezza;
 
@@ -9,11 +9,13 @@ public class Rettangolo {
         this.altezza = altezza;
     }
 
+    @Override
     public double perimetro()
     {
         return (base+altezza)*2;
     }
 
+    @Override
     public double area()
     {
         return base*altezza;

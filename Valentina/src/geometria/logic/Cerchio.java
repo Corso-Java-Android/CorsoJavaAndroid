@@ -1,12 +1,9 @@
 package geometria.logic;
 
 
-public class Cerchio {
+public class Cerchio extends FiguraGeometrica {
     private double raggio = 1;
 
-    /**
-     * prova
-     */
     public Cerchio() {
 
     }
@@ -16,13 +13,15 @@ public class Cerchio {
             this.raggio = raggio;
     }
 
+    @Override
     public double area() {
         return Math.PI*raggio*raggio;
     }
 
-    public double circonferenza() {
-        return 2*Math.PI*raggio;
-    }
+    @Override
+    public double perimetro(){ return circonferenza(); }
+
+    public double circonferenza() { return 2*Math.PI*raggio; }
 
     public double getDiametro()
     {
