@@ -7,4 +7,4 @@ select "Comuni:", count(*) from comuni
 
 select nome from regioni order by nome desc;
 
-select nome, capoluogo_provincia, codice_catastale from comuni where id_provincia = 70;
+select nome, capoluogo_provincia, codice_catastale from comuni where id_provincia = 70 OR id_provincia = 12;
