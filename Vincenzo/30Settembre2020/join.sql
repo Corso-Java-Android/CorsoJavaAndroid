@@ -16,6 +16,7 @@ insert into clienti VALUES (3,'Giacomo','Puccini','gpuccini@gmail.com','Corte Sa
 insert into clienti VALUES (4,'Gaetano','Donizetti','gaetano@walla.com','Via Don Luigi Palazzolo, 88','Bergamo','BG',24122);
 insert into clienti VALUES (5,'Vincenzo','Bellini','bellini@bellini.org','Piazza San Francesco d’Assisi, 3','Catania','CT',95100);
 
+drop table if exists ordini;
 
 create table ordini (id_ordine int primary key, data date,valore decimal(10,2),id_cliente int);
 insert into ordini values (1, str_to_date('10/10/2018', '%d/%m/%Y') ,345.67,1);
