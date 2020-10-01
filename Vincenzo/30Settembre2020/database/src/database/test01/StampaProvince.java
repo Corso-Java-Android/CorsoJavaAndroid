@@ -18,7 +18,7 @@ public class StampaProvince {
 
 		Connection connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/master?user=master&password=master");
 
-		String query = "select p.id_regione, r.nome, p.id, p.nome, p.sigla_automobilistica from province p, regioni r where p.id_regione=r.id;";
+		String query = "select p.id_regione, r.nome, p.id, p.nome, p.sigla_automobilistica from province p, regioni r where p.id_regione=r.id";
 
 		Statement st = connection.createStatement();
 
