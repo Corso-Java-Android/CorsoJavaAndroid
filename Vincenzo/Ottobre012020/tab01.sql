@@ -4,7 +4,7 @@ CREATE TABLE tab01
 (
    id integer DEFAULT NULL,
    descrizione varchar(200) DEFAULT NULL,
-   valore DECIMAL DEFAULT NULL
+   valore DECIMAL(13,2) DEFAULT NULL
 );
 
 INSERT INTO tab01 (id,descrizione,valore) VALUES (1,'Descrizione di prova',100.30);
