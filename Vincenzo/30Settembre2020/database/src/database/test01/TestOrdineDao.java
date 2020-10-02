@@ -2,7 +2,6 @@ package database.test01;
 
 import java.util.List;
 import java.util.Random;
-
 import database.dao.ClientiDao;
 import database.dao.OrdineDao;
 import database.exceptions.MyDatabaseException;
@@ -22,7 +21,6 @@ public class TestOrdineDao {
 			try {
 				test(cliente, od);
 			} catch (MyDatabaseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});
@@ -31,6 +29,7 @@ public class TestOrdineDao {
 		List<Ordine> ordini = od.findAll();
 
 		ordini.forEach(ordine -> System.out.println(ordine));
+		
 	}
 
 	private static void test(Cliente cliente, OrdineDao od) throws MyDatabaseException {
