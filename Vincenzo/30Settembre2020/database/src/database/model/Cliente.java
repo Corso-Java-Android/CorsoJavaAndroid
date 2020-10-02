@@ -29,4 +29,8 @@ public class Cliente {
 				+ ", INDIRIZZO=" + INDIRIZZO + ", CITTA=" + CITTA + ", PROVINCIA=" + PROVINCIA + ", CAP=" + CAP + "]";
 	}
 	
+	public int getID() {
+		return ID_CLIENTE;
+	}
+	
 }
