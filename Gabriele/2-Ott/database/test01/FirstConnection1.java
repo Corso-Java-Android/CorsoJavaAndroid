@@ -1,0 +1,107 @@
+package database.test01;
+
+import database.exception.*;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import database.exception.MyDataBaseException;
+import database.model.Regione;
+import database.util.ConnectionManager;
+
+public class FirstConnection1 {
+
+	public static void main(String[] args) throws MyDataBaseException {
+		
+		//String driver = "org.mariadb.jdbc.Driver"; ho creato il connection manager
+		//ConnectionManager cm = new ConnectionManager();   //sebbene questa classe serva per dividere la classe con un altra finzionalita fatta su connection manager ,questo è un problema perchè può fare casini, Devo
+														  //devo perciò trovare un modo (1 soluzione, ho creato un singleton su connectionmanager)per dire a conn manager di creare unno e uno solo oggetto
+		//Connection connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/master?user=master&password=manager"); lo trovi nel connection manager
+		
+		Connection connection = null;
+		
+		List<Regione> regioni = new ArrayList<Regione> ();
+		
+
+		String query = "select id as 'NomeId', nome as 'Nome' " +
+					   "from regioni";
+		
+		
+		Statement st = null;
+		ResultSet rs = null;
+		try {
+			
+			//connection = cm.getConnection();   //qui c'era prima "jdbc:mariadb://localhost:3306/master?user=master&password=manager";
+			//protegge il codice
+			
+			connection = ConnectionManager.getInstance().getConnection(); //(1)per ovviare al problema di instanziare un solo oggetto rendo la classe connection manager attraverso il singleton
+			
+			//Class.forName(driver);
+			
+			st = connection.createStatement();
+			rs = st.executeQuery(query);
+			
+			ResultSetMetaData rsmd = rs.getMetaData();
+			
+			while (rs.next()) {
+				
+				Regione regione = new Regione (rs.getInt(1),
+											   rs.getString(2),
+											   rs.getInt(3),
+											   rs.getInt(4)
+												
+						);
+				regioni.add(regione);
+				
+			}
+			
+			regioni.forEach( r -> System.out.println(r) );
+			/*
+			while (rs.next()) {
+				System.out.print(rsmd.getColumnName(1));  //nome colonna
+				System.out.print(rs.getInt("id"));
+				System.out.print(" ");
+				
+				System.out.print(rsmd.getColumnName(2));
+				System.out.println( rs.getString(2));  //numero colonna ps. il primo campo parte da 1 non da 0 come negli array
+				
+			}
+			
+			
+			while (rs.next()) {
+				System.out.print(rsmd.getColumnLabel(1) + ":");  //nome colonna
+				System.out.print(rs.getInt("id"));
+				System.out.print(" ");
+				
+				System.out.print(rsmd.getColumnLabel(2)+ ":");
+				System.out.println( rs.getString(2));  //numero colonna ps. il primo campo parte da 1 non da 0 come negli array
+				
+			}
+			*/
+			
+		} catch (SQLException e) {
+			System.out.println("Sono all'interno della catch");
+			e.printStackTrace();
+			throw new MyDataBaseException(e);
+		} finally {
+			
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			try {st.close(); } catch (SQLException e) {}
+			
+			try {connection.close(); } catch (SQLException e) {}
+		}
+		
+	}
+	
+}
