@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import database.dao.RegioniDao;
 import database.model.Regione;
+import web.util.HtmlEpilogue;
+import web.util.HtmlPrologue;
 
 /**
  * Servlet implementation class ElencoRegioni
@@ -44,9 +46,7 @@ public class ElencoRegioni extends HttpServlet {
 
 	protected void process(String metodo, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter pw = response.getWriter();
-		pw.append("<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Applicazione Java</title>");
-		pw.append("</head><body>");
-		pw.append("<h3>");
+		pw.append(HtmlPrologue.prologue("Elenco Regioni"));
 		pw.append("Elenco Regioni con "+metodo);
 		pw.append("</h3>");
 		//Carico le Regioni
@@ -63,7 +63,7 @@ public class ElencoRegioni extends HttpServlet {
 		pw.append("</table>");
 		
 		pw.append("<br>Served at: ").append(request.getContextPath());
-		pw.append("</body></html>");
+		pw.append(HtmlEpilogue.epilogue());
 	}
 	
 	protected void elenca(PrintWriter pw, Regione regione) {

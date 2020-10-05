@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import web.util.HtmlEpilogue;
+import web.util.HtmlPrologue;
+
 /**
  * Servlet implementation class HelloServlet
  */
@@ -38,14 +41,12 @@ public class HelloServlet extends HttpServlet {
 
 	protected void process(String metodo, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter pw = response.getWriter();
-		pw.append("<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Applicazione Java</title>");
-		pw.append("</head><body>");
-		pw.append("<h3>");
+		pw.append(HtmlPrologue.prologue("Hello Servlet"));
 		pw.append(metodo);
 		pw.append("</h3>");
 		pw.append(" ==> Hello l'applicazione sta funzionando ");
 		pw.append("Served at: ").append(request.getContextPath());
-		pw.append("</body></html>");
+		pw.append(HtmlEpilogue.epilogue());
 	}
 
 }
