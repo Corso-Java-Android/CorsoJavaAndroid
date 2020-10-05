@@ -2,6 +2,7 @@ package services;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,18 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import database.dao.RegioniDao;
+import database.model.Regione;
+
 /**
- * Servlet implementation class HelloServlet
+ * Servlet implementation class ElencoRegioni
  */
-@WebServlet(
-		description = "Test Servlet per Web Application", 
-		urlPatterns = { 
-				"/Hello", 
-				"/Test", 
-				"/T"
-		})
-public class HelloServlet extends HttpServlet {
+@WebServlet("/ElencoRegioni")
+public class ElencoRegioni extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ElencoRegioni() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -41,11 +47,27 @@ public class HelloServlet extends HttpServlet {
 		pw.append("<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Applicazione Java</title>");
 		pw.append("</head><body>");
 		pw.append("<h3>");
-		pw.append(metodo);
+		pw.append("Elenco Regioni con "+metodo);
 		pw.append("</h3>");
-		pw.append(" ==> Hello l'applicazione sta funzionando ");
-		pw.append("Served at: ").append(request.getContextPath());
+		//Carico le Regioni
+		RegioniDao dao = new RegioniDao();
+		List<Regione> regioni = dao.findAll();
+		
+		//Creo la Tabella
+		pw.append("<table border=1><tr><th>ID</th><th>Nome</th><th>Latitudine</th><th>Longitudine</th>");
+		
+		//Lavoro su singola regione
+		regioni.forEach(regione -> elenca(pw, regione));
+		
+		//chiudo tabella
+		pw.append("</table>");
+		
+		pw.append("<br>Served at: ").append(request.getContextPath());
 		pw.append("</body></html>");
+	}
+	
+	protected void elenca(PrintWriter pw, Regione regione) {
+		pw.append("<tr><td>"+regione.getId()+"</td><th>"+regione.getNome()+"</th><td>"+regione.getLatitudine()+"</td><td>"+regione.getLongitudine()+"</td></tr>");
 	}
 
 }
