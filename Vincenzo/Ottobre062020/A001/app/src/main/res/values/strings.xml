@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">A001</string>
+    <string name="bottone_sopra">Bottone Sopra</string>
+    <string name="bottone_sotto">Bottone Sotto</string>
+    <string name="hello">HELLO!</string>
 </resources>
