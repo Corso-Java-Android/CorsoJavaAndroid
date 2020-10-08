@@ -5,4 +5,5 @@
     <string name="calcola_somma">Calcola Somma</string>
     <string name="calcola_prodotto">Calcola Prodotto</string>
     <string name="risultato">Risultato</string>
+    <string name="calcola_differenza">Calcola Differenza</string>
 </resources>

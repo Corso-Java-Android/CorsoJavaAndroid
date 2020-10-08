@@ -18,49 +18,21 @@ public class MainActivity extends AppCompatActivity {
         //Bottoni
         Button somma = findViewById(R.id.button);
         Button prodotto = findViewById(R.id.button2);
+        Button sottrazione = findViewById(R.id.button3);
+        Button quoziente = findViewById(R.id.button4);
+
         //Caselle di Testo
         TextView text1 = findViewById(R.id.oper1);
         text1.setText("0");
         TextView text2 = findViewById(R.id.oper2);
         text2.setText("0");
+        TextView risultato = findViewById(R.id.risultato);
 
         //Listener
-        somma.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TEXT VIEW
-                TextView text1 = findViewById(R.id.oper1);
-                TextView text2 = findViewById(R.id.oper2);
-                //VALORI IN TEXTVIEW
-                String cont1 = text1.getText().toString();
-                String cont2 = text2.getText().toString();
-                if(cont1.length()==0||cont2.length()==0)
-                    return;
-                int oper1 = Integer.parseInt(cont1);
-                int oper2 = Integer.parseInt(cont2);
-                //SOMMA
-                TextView risultato = findViewById(R.id.risultato);
-                risultato.setText(""+(oper1+oper2));
-            }
-        });
-        prodotto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TEXT VIEW
-                TextView text1 = findViewById(R.id.oper1);
-                TextView text2 = findViewById(R.id.oper2);
-                //VALORI IN TEXTVIEW
-                String cont1 = text1.getText().toString();
-                String cont2 = text2.getText().toString();
-                if(cont1.length()==0||cont2.length()==0)
-                    return;
-                int oper1 = Integer.parseInt(cont1);
-                int oper2 = Integer.parseInt(cont2);
-                //SOMMA
-                TextView risultato = findViewById(R.id.risultato);
-                risultato.setText(""+(oper1*oper2));
-            }
-        });
+        somma.setOnClickListener(new MathClickListener(text1, text2, risultato,"+"));
+        prodotto.setOnClickListener(new MathClickListener(text1, text2, risultato, "x"));
+        sottrazione.setOnClickListener(new MathClickListener(text1, text2, risultato,"-"));
+        quoziente.setOnClickListener(new MathClickListener(text1, text2, risultato,":"));
 
     }
 }
