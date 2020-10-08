@@ -10,7 +10,8 @@ public class BtAddOnClickListener implements View.OnClickListener {
     private int contatore = 0;
     private TextView textView;
 
-    public BtAddOnClickListener(TextView textView) {
+    public BtAddOnClickListener(int contatore, TextView textView) {
+        this.contatore = contatore;
         this.textView = textView;
     }
 
@@ -21,4 +22,17 @@ public class BtAddOnClickListener implements View.OnClickListener {
         String msg = "Il  valore del contatore è "+this.contatore+"\n";
         this.textView.append(msg);
     }
+
+    public int getContatore() {
+        return this.contatore;
+    }
+
+    public void setContatore(int contatore) {
+        this.contatore = contatore;
+    }
+
+    public void reset(){
+       setContatore(0);
+    }
+
 }

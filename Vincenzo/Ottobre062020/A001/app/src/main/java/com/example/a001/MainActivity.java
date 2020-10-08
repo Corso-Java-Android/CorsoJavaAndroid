@@ -1,22 +1,31 @@
 package com.example.a001;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String KEY = "Contatore dell'applicazione";
+    private static final String KEY_CONTATORE = "Contatore dell'applicazione";
+    private static final String KEY_TEXT = "Contenuto della TextView";
+
     private int contatore = 0;
 
+    private TextView textView = null;
+    private BtAddOnClickListener listener = null;
 
     private static final String tag = "*** MainActivity()";
+
 
     public MainActivity() {
         super();
@@ -24,31 +33,71 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Activity shutdown")
+                .setMessage("Are you sure you want to exit this app?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(), "Chiusura Abortita", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .show();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(savedInstanceState != null) {
-            this.contatore = savedInstanceState.getInt(KEY);
-            Log.d(tag, "Valore Letto del Contatore="+this.contatore);
-        }
+
         Log.d(tag, "001 - onCreate in azione");
 
         setContentView(R.layout.activity_main);
 
-        TextView textView = findViewById(R.id.textView);
+        this.textView = findViewById(R.id.textView);
+        this.textView.setMovementMethod(new ScrollingMovementMethod());
 
-        textView.setMovementMethod(new ScrollingMovementMethod());
+        if (savedInstanceState != null) {
+            this.contatore = savedInstanceState.getInt(KEY_CONTATORE);
+            this.textView.setText(savedInstanceState.getString(KEY_TEXT));
+            Log.d(tag, "Valore Letto del Contatore=" + this.contatore);
+        }
 
-        BtAddOnClickListener listener = new BtAddOnClickListener(textView);
-        Button button =  findViewById(R.id.btAdd);
-        button.setOnClickListener(listener);
+        this.listener = new BtAddOnClickListener(this.contatore, this.textView);
+        Button button = findViewById(R.id.btAdd);
+        button.setOnClickListener(this.listener);
 
-        findViewById(R.id.btClear).setOnClickListener(new BtClearOnClickListener(textView)); // sintetica
+        findViewById(R.id.btClear).setOnClickListener(new BtClearOnClickListener(getApplicationContext(), this.textView, listener)); // sintetica
+
+        findViewById(R.id.btOk).setOnClickListener(
+                new View.OnClickListener() { // anonymous inner class
+                    @Override
+                    public void onClick(View v) {
+                        MainActivity.this.textView.append("Premuto btOk\n");
+                    }
+                }
+        );
     }
+
+    public void gestisciBottone(View view) {
+
+    }
+
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        this.contatore++;
-        outState.putInt(KEY, this.contatore);
+
+        outState.putInt(KEY_CONTATORE, this.listener.getContatore());
+        outState.putString(KEY_TEXT, this.textView.getText().toString()); // salvo il contenuto della text Area
+
         Log.d(tag, "201 - onSaveInstanceState in azione");
         super.onSaveInstanceState(outState);
     }
@@ -56,8 +105,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         Log.d(tag, "202 - onRestoreInstanceState in azione");
-        this.contatore = savedInstanceState.getInt(KEY);
-        Log.d(tag, "Valore Letto del Contatore="+this.contatore);
+
+//        this.contatore = savedInstanceState.getInt(KEY_CONTATORE);
+        this.listener.setContatore(savedInstanceState.getInt(KEY_CONTATORE));
+
+        this.textView.setText(savedInstanceState.getString(KEY_TEXT));
+
+        Log.d(tag, "Valore Letto del Contatore=" + this.contatore);
     }
 
     @Override
