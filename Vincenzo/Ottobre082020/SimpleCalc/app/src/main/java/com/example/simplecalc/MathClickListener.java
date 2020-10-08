@@ -27,8 +27,8 @@ public class MathClickListener implements View.OnClickListener {
         if(cont1.length()==0||cont2.length()==0)
             return;
 
-        int oper1 = Integer.parseInt(cont1);
-        int oper2 = Integer.parseInt(cont2);
+        Double oper1 = Double.parseDouble(cont1);
+        Double oper2 = Double.parseDouble(cont2);
 
         switch (this.sign) {
             case "+": {
