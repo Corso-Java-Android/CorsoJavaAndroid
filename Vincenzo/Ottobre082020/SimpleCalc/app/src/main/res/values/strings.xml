@@ -2,8 +2,9 @@
     <string name="app_name">SimpleCalc</string>
     <string name="textview">Oper.1</string>
     <string name="textview2">Oper.2</string>
-    <string name="calcola_somma">Calcola Somma</string>
-    <string name="calcola_prodotto">Calcola Prodotto</string>
+    <string name="calcola_somma">Somma</string>
+    <string name="calcola_prodotto">Prodotto</string>
     <string name="risultato">Risultato</string>
-    <string name="calcola_differenza">Calcola Differenza</string>
+    <string name="calcola_differenza">Differenza</string>
+    <string name="quoziente">Quoziente</string>
 </resources>
