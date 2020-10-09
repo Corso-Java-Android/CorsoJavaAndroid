@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String KEY_CONTATORE = "Contatore dell'applicazione";
     private static final String KEY_TEXT = "Contenuto della TextView";
 
-    private int contatore = 0;
+    private State contatore = new State(0);
 
     private TextView textView = null;
     private BtAddOnClickListener listener = null;
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         this.textView.setMovementMethod(new ScrollingMovementMethod());
 
         if (savedInstanceState != null) {
-            this.contatore = savedInstanceState.getInt(KEY_CONTATORE);
+            this.contatore = (State) savedInstanceState.getSerializable(KEY_CONTATORE);
             this.textView.setText(savedInstanceState.getString(KEY_TEXT));
             Log.d(tag, "Valore Letto del Contatore=" + this.contatore);
         }
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         Button button = findViewById(R.id.btAdd);
         button.setOnClickListener(this.listener);
 
-        findViewById(R.id.btClear).setOnClickListener(new BtClearOnClickListener(getApplicationContext(), this.textView, listener)); // sintetica
+        findViewById(R.id.btClear).setOnClickListener(new BtClearOnClickListener(getApplicationContext(), this.textView, this.contatore)); // sintetica
 
         findViewById(R.id.btOk).setOnClickListener(
                 new View.OnClickListener() { // anonymous inner class
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
 
-        outState.putInt(KEY_CONTATORE, this.listener.getContatore());
+        outState.putSerializable(KEY_CONTATORE, contatore);
         outState.putString(KEY_TEXT, this.textView.getText().toString()); // salvo il contenuto della text Area
 
         Log.d(tag, "201 - onSaveInstanceState in azione");
@@ -107,7 +107,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d(tag, "202 - onRestoreInstanceState in azione");
 
 //        this.contatore = savedInstanceState.getInt(KEY_CONTATORE);
-        this.listener.setContatore(savedInstanceState.getInt(KEY_CONTATORE));
+        contatore = (State) savedInstanceState.getSerializable(KEY_CONTATORE);
+        this.listener.setState(contatore);
 
         this.textView.setText(savedInstanceState.getString(KEY_TEXT));
 

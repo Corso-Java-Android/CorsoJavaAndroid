@@ -11,9 +11,9 @@ public class BtClearOnClickListener implements View.OnClickListener {
 
     private TextView textView;
     private Context context;
-    private BtAddOnClickListener listener;
+    private State listener;
 
-    public BtClearOnClickListener(Context context, TextView textView, BtAddOnClickListener listener) {
+    public BtClearOnClickListener(Context context, TextView textView, State listener) {
         this.context = context;
         this.textView = textView;
         this.listener = listener;
