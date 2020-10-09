@@ -3,7 +3,6 @@ package com.example.a001;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -12,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.android.material.snackbar.Snackbar;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private State contatore = new State(0);
 
     private TextView textView = null;
-    private BtAddOnClickListener listener = null;
+    private ButtonsOnClickListener listener = null;
 
     private static final String tag = "*** MainActivity()";
 
@@ -71,11 +71,11 @@ public class MainActivity extends AppCompatActivity {
             Log.d(tag, "Valore Letto del Contatore=" + this.contatore);
         }
 
-        this.listener = new BtAddOnClickListener(this.contatore, this.textView);
+        this.listener = new ButtonsOnClickListener(this.contatore, this.textView);
         Button button = findViewById(R.id.btAdd);
         button.setOnClickListener(this.listener);
 
-        findViewById(R.id.btClear).setOnClickListener(new BtClearOnClickListener(getApplicationContext(), this.textView, this.contatore)); // sintetica
+        findViewById(R.id.btClear).setOnClickListener(new ButtonsOnClickListener(this.contatore, this.textView)); // sintetica
 
         findViewById(R.id.btOk).setOnClickListener(
                 new View.OnClickListener() { // anonymous inner class
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        this.contatore = savedInstanceState.getInt(KEY_CONTATORE);
         contatore = (State) savedInstanceState.getSerializable(KEY_CONTATORE);
-        this.listener.setState(contatore);
+        //this.listener.setState(contatore);
 
         this.textView.setText(savedInstanceState.getString(KEY_TEXT));
 
@@ -119,6 +119,29 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Log.d(tag, "002 - onStart in azione");
+
+        View rootView=findViewById(android.R.id.content); // root view
+
+        Snackbar snack = Snackbar.make(rootView, "Applicazione Attivata", Snackbar.LENGTH_LONG);
+
+        snack.setAction("Premi Qui", new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.d(tag, "onClick: Click pressed on snackbar");
+            }
+        });
+
+        snack.show();
+/*
+        Snackbar.make(rootView, "Applicazione Attivata", Snackbar.LENGTH_LONG)
+                .setAction("Premi Qui", new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        Log.d(TAG, "onClick: Click pressed on snackbar");
+                    }
+                })
+                .show();
+*/
     }
 
     @Override
