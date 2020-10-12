@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class FoxJsonRetriever extends AsyncTask<String, Void, String> {
-        private static final String TAG = "NasaJsonRetriever";
+        private static final String TAG = "FoxJsonRetriever";
 
         @Override
         protected String doInBackground(String... params) {
