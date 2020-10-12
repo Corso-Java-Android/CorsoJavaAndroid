@@ -1,5 +1,7 @@
 package com.example.a004;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -17,20 +19,26 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    private static final String NASA_URL = "https://api.nasa.gov/planetary/apod?api_key=JRMGEMheIjAmpW8lAbYZhDWNxOyGSowO3MicFXai";
+    private static final String NASA_URL = "https://api.nasa.gov/planetary/apod?date=2020-10-01&api_key=JRMGEMheIjAmpW8lAbYZhDWNxOyGSowO3MicFXai";
 
     private TextView txtLink;
     private TextView txtDescription;
     private ImageView imgView;
+
+    private NasaApodObject nao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,17 +98,17 @@ public class MainActivity extends AppCompatActivity {
     // inner class di MainActivity
     //
     private class NasaJsonRetriever extends AsyncTask<String, Void, String> {
-        private static final String TAG = "LavoroParallelo";
+        private static final String TAG = "NasaJsonRetriever";
 
         @Override
         protected String doInBackground(String... params) {
             Log.d(TAG, "doInBackground: " + params[0]);
             Log.d(TAG, "doInBackground: #parametri=" + params.length);
-            // LEGGERE DATI DA INTERNET
             return downloadData(params[0]);
         }
 
         private String downloadData(String path) {
+
             URL url = null;
             URLConnection connection = null;
             InputStream is = null;
@@ -109,37 +117,86 @@ public class MainActivity extends AppCompatActivity {
 
             StringBuilder json = new StringBuilder();
 
-            try{
+            try {
+                // connessioni e sorgenti di dati
                 url = new URL(path);
                 connection = url.openConnection();
                 is = connection.getInputStream();
                 ir = new InputStreamReader(is);
                 reader = new BufferedReader(ir);
 
-                char[] buffer = new char[2048];
+                // leggere i dati
+                char [] buffer = new char[2048];
                 int nreads = reader.read(buffer);
-                while(nreads>0){
-                    json.append(buffer, 0, nreads);
+                while(nreads > 0) {
+                    json.append(buffer, 0, nreads); // compongo la string in uscita pezzo per pezzo
                     nreads = reader.read(buffer);
                 }
-            }catch(IOException e){
+
+
+            } catch (IOException e) {
                 e.printStackTrace();
-            }finally{
-                try{reader.close();}catch (Throwable t){}
-                try{ir.close();}catch(Throwable t){}
-                try{is.close();}catch(Throwable t){}
+            } finally {
+                try { reader.close(); } catch(Throwable t) {}
+                try { ir.close(); } catch(Throwable t) {}
+                try { is.close(); } catch(Throwable t) {}
             }
 
             return json.toString();
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            MainActivity.this.txtDescription.setText(s);
-            Log.d(TAG, "onPostExecute: Risulato=" + s);
+        protected void onPostExecute(String jsonString) {
+            JSONObject jo = null;
+            NasaApodObject nao = null;
+
+            try {
+                jo = new JSONObject(jsonString);
+                nao = new NasaApodObject(
+                        jo.getString("date"),
+                        jo.getString("explanation"),
+                        jo.getString("media_type"),
+                        jo.getString("service_version"),
+                        jo.getString("title"),
+                        jo.getString("url")
+                );
+                Log.d(TAG, "onPostExecute: jsono="+nao);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            MainActivity.this.txtLink.setText(nao.getTitle());
+            MainActivity.this.txtDescription.setText(nao.getExplanation());
+            MainActivity.this.nao = nao;
+
+            DownloadImageTask dit = new DownloadImageTask();
+            dit.execute(nao.getUrl());
         }
     }
 
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
+        @Override
+        protected Bitmap doInBackground(String... urls) {
+            Bitmap bitmap = null;
+            InputStream is = null;
+            try {
+                is = new URL(urls[0]).openStream();
+                bitmap = BitmapFactory.decodeStream(is);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {is.close();}catch(Throwable t) {}
+            }
+            return bitmap;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            MainActivity.this.nao.setBitmap(bitmap);
+            MainActivity.this.imgView.setImageBitmap(bitmap);
+        }
+    }
 
 }

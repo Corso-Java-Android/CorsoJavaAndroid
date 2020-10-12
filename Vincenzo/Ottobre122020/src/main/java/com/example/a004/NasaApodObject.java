@@ -1,12 +1,17 @@
 package com.example.a004;
 
-public class NasaApodObject {
+import android.graphics.Bitmap;
+
+import java.io.Serializable;
+
+public class NasaApodObject implements Serializable {
     private String data;
     private String explanation;
     private String mediaType;
     private String serviceVersion;
     private String title;
     private String url;
+    private Bitmap bitmap;
 
     public NasaApodObject(String data, String explanation, String mediaType, String serviceVersion, String title, String url) {
         this.data = data;
@@ -43,13 +48,22 @@ public class NasaApodObject {
 
     @Override
     public String toString() {
-        return "NasaApodObject{" +
-                "data='" + data + '\'' +
-                ", explanation='" + explanation + '\'' +
-                ", mediaType='" + mediaType + '\'' +
-                ", serviceVersion='" + serviceVersion + '\'' +
-                ", title='" + title + '\'' +
-                ", url='" + url + '\'' +
-                '}';
+        final StringBuilder sb = new StringBuilder("NasaApodObject{");
+        sb.append("data='").append(data).append('\'');
+        sb.append(", explanation='").append(explanation).append('\'');
+        sb.append(", mediaType='").append(mediaType).append('\'');
+        sb.append(", serviceVersion='").append(serviceVersion).append('\'');
+        sb.append(", title='").append(title).append('\'');
+        sb.append(", url='").append(url).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 }
