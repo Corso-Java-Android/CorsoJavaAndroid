@@ -17,6 +17,13 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private static final String NASA_URL = "https://api.nasa.gov/planetary/apod?api_key=JRMGEMheIjAmpW8lAbYZhDWNxOyGSowO3MicFXai";
@@ -90,7 +97,40 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "doInBackground: " + params[0]);
             Log.d(TAG, "doInBackground: #parametri=" + params.length);
             // LEGGERE DATI DA INTERNET
-            return "Dati da Internet Letti OK";
+            return downloadData(params[0]);
+        }
+
+        private String downloadData(String path) {
+            URL url = null;
+            URLConnection connection = null;
+            InputStream is = null;
+            InputStreamReader ir = null;
+            BufferedReader reader = null;
+
+            StringBuilder json = new StringBuilder();
+
+            try{
+                url = new URL(path);
+                connection = url.openConnection();
+                is = connection.getInputStream();
+                ir = new InputStreamReader(is);
+                reader = new BufferedReader(ir);
+
+                char[] buffer = new char[2048];
+                int nreads = reader.read(buffer);
+                while(nreads>0){
+                    json.append(buffer, 0, nreads);
+                    nreads = reader.read(buffer);
+                }
+            }catch(IOException e){
+                e.printStackTrace();
+            }finally{
+                try{reader.close();}catch (Throwable t){}
+                try{ir.close();}catch(Throwable t){}
+                try{is.close();}catch(Throwable t){}
+            }
+
+            return json.toString();
         }
 
         @Override
