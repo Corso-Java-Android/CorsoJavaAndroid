@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     public int numero = 0;
     public TextView text = null;
     public TextView text2 = null;
+    public Random rand = null;
     public Context MainActivity = null;
 
     @Override
@@ -25,12 +26,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         MainActivity = this;
-        Random rand = new Random();
-        numero = 1 + rand.nextInt(1000);
-        tentativi = 10;
+        rand = new Random();
         text = findViewById(R.id.text);
-        text.setText("Ho pensato ad un numero tra 1 e 1000. Hai a disposizione "+tentativi+" tentativi per indovinarlo.");
         text2 = findViewById(R.id.text2);
+
+        reset();
 
         final TextView etn = findViewById(R.id.editTextNumber);
 
@@ -45,13 +45,15 @@ public class MainActivity extends AppCompatActivity {
                     //GESTIRE VITTORIA
                     Intent intent = new Intent(MainActivity, Vittoria.class);
                     startActivity(intent);
+                    reset();
                 }else{
                     tentativi--;
                     if(tentativi==0){
-                        //GESTIRE SCONFITTA
+                        //SCONFITTA
                         Intent intent = new Intent(MainActivity, Sconfitta.class);
                         intent.putExtra("Numero", numero);
                         startActivity(intent);
+                        reset();
                     }else{
                     text.setText("Ho pensato ad un numero tra 1 e 1000. Hai a disposizione "+tentativi+" tentativi per indovinarlo.");
                     if(guess<numero){
@@ -63,5 +65,20 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Button button2 = findViewById(R.id.button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reset();
+            }
+        });
+    }
+
+    private void reset() {
+        numero = 1 + rand.nextInt(1000);
+        tentativi = 10;
+        text.setText("Ho pensato ad un numero tra 1 e 1000. Hai a disposizione "+tentativi+" tentativi per indovinarlo.");
+        text2.setText("");
     }
 }
