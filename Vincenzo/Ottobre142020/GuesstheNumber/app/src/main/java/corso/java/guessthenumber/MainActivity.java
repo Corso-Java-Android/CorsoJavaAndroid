@@ -2,6 +2,8 @@ package corso.java.guessthenumber;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,12 +17,14 @@ public class MainActivity extends AppCompatActivity {
     public int numero = 0;
     public TextView text = null;
     public TextView text2 = null;
+    public Context MainActivity = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        MainActivity = this;
         Random rand = new Random();
         numero = 1 + rand.nextInt(1000);
         tentativi = 10;
@@ -39,10 +43,15 @@ public class MainActivity extends AppCompatActivity {
                 int guess = Integer.parseInt(etn.getText().toString());
                 if(guess==numero){
                     //GESTIRE VITTORIA
+                    Intent intent = new Intent(MainActivity, Vittoria.class);
+                    startActivity(intent);
                 }else{
                     tentativi--;
                     if(tentativi==0){
                         //GESTIRE SCONFITTA
+                        Intent intent = new Intent(MainActivity, Sconfitta.class);
+                        intent.putExtra("Numero", numero);
+                        startActivity(intent);
                     }else{
                     text.setText("Ho pensato ad un numero tra 1 e 1000. Hai a disposizione "+tentativi+" tentativi per indovinarlo.");
                     if(guess<numero){
