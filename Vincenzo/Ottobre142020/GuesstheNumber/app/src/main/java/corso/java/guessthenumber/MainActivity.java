@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         numero = 1 + rand.nextInt(1000);
         tentativi = 10;
         text = findViewById(R.id.text);
-        text.setText("Ho pensato ad un numero tra 1 e 1000. Hai a disposizione "+tentativi+" per indovinarlo.");
+        text.setText("Ho pensato ad un numero tra 1 e 1000. Hai a disposizione "+tentativi+" tentativi per indovinarlo.");
         text2 = findViewById(R.id.text2);
 
         final TextView etn = findViewById(R.id.editTextNumber);
@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(tentativi==0)
+                    return;
                 int guess = Integer.parseInt(etn.getText().toString());
                 if(guess==numero){
                     //GESTIRE VITTORIA
@@ -42,11 +44,11 @@ public class MainActivity extends AppCompatActivity {
                     if(tentativi==0){
                         //GESTIRE SCONFITTA
                     }else{
-                    text.setText("Ho pensato ad un numero tra 1 e 1000. Hai a disposizione "+tentativi+" per indovinarlo.");
+                    text.setText("Ho pensato ad un numero tra 1 e 1000. Hai a disposizione "+tentativi+" tentativi per indovinarlo.");
                     if(guess<numero){
-                        text2.setText("Il numero è >");
+                        text2.append(guess+": Il numero è >\n");
                     }else{
-                        text2.setText("Il numero è <");
+                        text2.append(guess+": Il numero è <\n");
                     }
                     }
                 }
