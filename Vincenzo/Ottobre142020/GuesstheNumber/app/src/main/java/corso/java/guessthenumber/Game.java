@@ -1,9 +1,6 @@
 package corso.java.guessthenumber;
 
-import android.content.Context;
-import android.content.Intent;
 import android.widget.TextView;
-
 import java.util.Random;
 
 public class Game {
