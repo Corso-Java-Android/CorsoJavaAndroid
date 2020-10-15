@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">My Blog</string>
     <string name="elenco_dei_post">Elenco dei Post</string>
+    <string name="fabTxt">NUOVO POST</string>
+    <string name="id">ID</string>
+    <string name="title">Title</string>
+    <string name="body">Body</string>
 </resources>

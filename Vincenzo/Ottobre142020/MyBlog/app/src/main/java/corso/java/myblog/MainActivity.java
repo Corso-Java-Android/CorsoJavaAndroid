@@ -1,11 +1,19 @@
 package corso.java.myblog;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -13,17 +21,40 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     public  final static String TAG = "_MainActivity";
+    public ArrayList<Post> posts = null;
+    public Context MainActivity = null;
+    public ListView list = null;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.i(TAG, "onCreate di MainActivity");
-        ListView list = findViewById(R.id.listView);
-        list.setAdapter(new ArrayAdapter<Post>(this, android.R.layout.simple_list_item_1, makePosts()));
+        MainActivity = this;
+        list = findViewById(R.id.listView);
+        posts = makePosts();
+        list.setAdapter(new ArrayAdapter<Post>(MainActivity, android.R.layout.simple_list_item_1, posts));
+        FloatingActionButton fab = findViewById(R.id.floatingActionButton);
+        fab.setTooltipText(getString(R.string.fabTxt));
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity, NewPostActivity.class);
+                startActivityForResult(i, 0);
+            }
+        });
     }
 
-    private ArrayList<Post> makePosts() {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent databack) {
+        super.onActivityResult(requestCode, resultCode, databack);
+        Bundle extra = databack.getExtras();
+        posts.add(new Post(posts.size(), extra.getInt("id"), extra.getString("title"), extra.getString("body")));
+        list.setAdapter(new ArrayAdapter<Post>(MainActivity, android.R.layout.simple_list_item_1, posts));
+    }
+
+private ArrayList<Post> makePosts() {
         ArrayList<Post> posts = new ArrayList<Post>();
         Random rand = new Random();
         int numPosts = 1+rand.nextInt(20);
