@@ -1,18 +1,30 @@
 package com.example.calcolatrice;
 
+import android.content.Context;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+
 public class Calcolatrice {
     private double num1;
     private double num2;
     private String sign;
     private Boolean isFloat;
     private int floatDiv;
+    private ListView listView = null;
+    private ArrayList<String> history = null;
+    private Context context = null;
 
-    public Calcolatrice(){
+    public Calcolatrice(ListView listView, Context context){
         num1 = 0;
         num2 = 0;
         sign = "";
         isFloat = false;
         floatDiv = 1;
+        this.listView = listView;
+        this.history = new ArrayList<String>();
+        this.context = context;
     }
 
     public double setNumber(double number){
@@ -71,23 +83,31 @@ public class Calcolatrice {
     }
 
     private double somma(){
-        return num1+num2;
+        double toReturn = num1+num2;
+        updateList(num1+" + "+num2+" = "+toReturn);
+        return toReturn;
     }
 
     private double moltiplicazione(){
-        return num1*num2;
+        double toReturn = num1*num2;
+        updateList(num1+" * "+num2+" = "+toReturn);
+        return toReturn;
     }
 
     private double divisione() throws ArithmeticException {
-        if(num2!=0)
-            return num1/num2;
-        else {
+        if(num2!=0){
+            double toReturn = num1/num2;
+            updateList(num1+" / "+num2+" = "+toReturn);
+            return toReturn;
+        } else {
             throw new ArithmeticException("Divisione per 0!");   //Gestire la divisione per 0
         }
     }
 
     private double sottrazione(){
-        return num1-num2;
+        double toReturn = num1-num2;
+        updateList(num1+" - "+num2+" = "+toReturn);
+        return toReturn;
     }
 
     public void reset() {
@@ -109,4 +129,10 @@ public class Calcolatrice {
             return num1+sign;
         }
     }
+
+    private void updateList(String update){
+        history.add(update);
+        listView.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, history));
+    }
+
 }

@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     Calcolatrice cal = null;
     TextView tx = null;
+    ListView list = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +23,10 @@ public class MainActivity extends AppCompatActivity {
         //TEXT VIEW DISPLAY
         tx = findViewById(R.id.textView);
         tx.setText("0");
+        //LIST VIEW
+        list = findViewById(R.id.listView);
         //Calcolatrice vera e propria
-        cal = new Calcolatrice();
+        cal = new Calcolatrice(list, this);
         //BOTTONI NUMERICI
         final Button button1 = findViewById(R.id.button);
         button1.setOnClickListener(new NumberClickListener(button1, cal, tx));
