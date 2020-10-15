@@ -1,6 +1,10 @@
 package corso.java.guessthenumber;
 
+import android.content.Context;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Game {
@@ -8,12 +12,16 @@ public class Game {
     int numero;
     int tentativi;
     TextView text = null;
-    TextView text2 = null;
+    ListView listView = null;
+    ArrayList<String> history = null;
+    Context context = null;
 
-    public Game(TextView text, TextView text2){
+    public Game(TextView text, ListView listView, Context context){
         rand = new Random();
         this.text = text;
-        this.text2 = text2;
+        this.listView = listView;
+        this.history = new ArrayList<String>();
+        this.context = context;
         reset();
     }
 
@@ -32,10 +40,11 @@ public class Game {
             }else{
                 text.setText("Ho pensato ad un numero tra 1 e 1000. Hai a disposizione "+tentativi+" tentativi per indovinarlo.");
                 if(guess<numero){
-                    text2.append(guess+": Il numero è >\n");
+                    history.add(guess+": Il numero è >\n");
                 }else{
-                    text2.append(guess+": Il numero è <\n");
+                    history.add(guess+": Il numero è <\n");
                 }
+                listView.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, history));
                 return 0;
             }
         }
@@ -45,7 +54,8 @@ public class Game {
         numero = 1 + rand.nextInt(1000);
         tentativi = 10;
         text.setText("Ho pensato ad un numero tra 1 e 1000. Hai a disposizione "+tentativi+" tentativi per indovinarlo.");
-        text2.setText("");
+        history.clear();
+        listView.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, history));
     }
 
     public int getNumero() {

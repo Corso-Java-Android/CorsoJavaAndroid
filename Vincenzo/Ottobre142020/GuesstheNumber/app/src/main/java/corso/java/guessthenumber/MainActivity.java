@@ -1,19 +1,18 @@
 package corso.java.guessthenumber;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     public Game game = null;
     public TextView text = null;
-    public TextView text2 = null;
     public Context MainActivity = null;
 
     @Override
@@ -23,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
         MainActivity = this;
         text = findViewById(R.id.text);
-        text2 = findViewById(R.id.text2);
-        game = new Game(text, text2);
+        ListView listView = findViewById(R.id.ListView);
+        game = new Game(text, listView, MainActivity);
 
         final TextView etn = findViewById(R.id.editTextNumber);
 
