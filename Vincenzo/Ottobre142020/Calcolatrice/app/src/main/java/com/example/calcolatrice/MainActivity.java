@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         tx.setText("0");
         //LIST VIEW
         list = findViewById(R.id.listView);
+        
         //Calcolatrice vera e propria
         cal = new Calcolatrice(list, this);
         //BOTTONI NUMERICI
@@ -96,6 +97,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 cal.reset();
                 tx.setText("0");
+            }
+        });
+        final Button button20 = findViewById(R.id.button20);
+        button20.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cal.resetList();
             }
         });
     }

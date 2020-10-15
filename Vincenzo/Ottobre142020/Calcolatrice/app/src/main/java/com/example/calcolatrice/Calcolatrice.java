@@ -135,4 +135,9 @@ public class Calcolatrice {
         listView.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, history));
     }
 
+    public void resetList(){
+        history.clear();
+        listView.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, history));
+    }
+
 }
