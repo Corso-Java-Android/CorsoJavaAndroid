@@ -10,15 +10,15 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public static class Metadata {
         public static int DB_VERSION = 1;
-        public static final String DB_NAME = "myblog";
+        public static final String DB_NAME = "todolist";
 
-        public static final String POSTS_TABLE = "posts";
+        public static final String POSTS_TABLE = "tasks";
 
         public static class PostColumns {
-            public static final String ID = "_id";
-            public static final String USERID = "userId";
-            public static final String TITLE = "title";
-            public static final String BODY = "body";
+            public static final String TITOLO = "_titolo";
+            public static final String DESCRIZIONE = "userId";
+            public static final String DATADIINIZIO = "datadiinizio";
+            public static final String DATADIFINE = "datadifine";
         }
     }
 
@@ -31,10 +31,10 @@ public class DbHelper extends SQLiteOpenHelper {
         // Comandi DDL per la creazione delle tabelle
         final String post_table =
                 "CREATE TABLE " + Metadata.POSTS_TABLE + "(" +
-                        Metadata.PostColumns.ID + " INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE," + // strong key o surrogate key
-                        Metadata.PostColumns.USERID + " INTEGER," +
-                        Metadata.PostColumns.TITLE + " TEXT NOT NULL," +
-                        Metadata.PostColumns.BODY + " TEXT NOT NULL)";
+                        Metadata.PostColumns.TITOLO + " TEXT," + // strong key o surrogate key
+                        Metadata.PostColumns.DESCRIZIONE + " TEXT," +
+                        Metadata.PostColumns.DATADIINIZIO + " TEXT NOT NULL," +
+                        Metadata.PostColumns.DATADIFINE + " TEXT NOT NULL)";
         try {
             db.beginTransaction();
             db.execSQL(post_table);
