@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">My Blog</string>
+    <string name="welcome_message">Benvenuto</string>
+    <string name="add_post">Aggiungi</string>
+    <string name="label_title">Titolo</string>
+    <string name="label_body">Contenuto</string>
+    <string name="new_post">Nuovo Post</string>
+</resources>
