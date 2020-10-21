@@ -2,4 +2,5 @@
 <resources>
     <dimen name="start_margin">5dp</dimen>
     <dimen name="padding_h">5dp</dimen>
+    <dimen name="radio_button_margin">25dp</dimen>
 </resources>

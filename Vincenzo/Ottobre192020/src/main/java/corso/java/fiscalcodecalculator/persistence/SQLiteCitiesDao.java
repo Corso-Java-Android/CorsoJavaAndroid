@@ -3,7 +3,6 @@ package corso.java.fiscalcodecalculator.persistence;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 /**
  * Implementazione del DAO su SQLite.
@@ -46,15 +45,27 @@ public class SQLiteCitiesDao implements CitiesDao {
      */
     @Override
     public Cursor query(String[] projection, String selection, String[] params, String sortOrder) {
+        // SELECT
+        //     DISTINCT (1)
+        //     projection - elenco di campi - fields list (3)
+        // FROM TABLE_NAME (2)
+        // WHERE selection (4) & parameters (5)
+        // -- selection = "field1 = ? AND field2 = ? OR field3 = ?
+        // -- parameters array i cui valori sostituiscono i valori al posto del ? nell'ordine di presentazione all'interno della selezione!
+        // GROUP BY grouping expression (6)
+        // HAVING grouping filtering
+        // ORDER BY fields list (8)
+        // LIMIT page size (9)
         return helper.getReadableDatabase().query(
-                true,
-                CitiesDbHelper.Metadata.Tables.Cities.TABLE_NAME,
-                projection,
-                selection,
-                params,
-                null, null,
-                sortOrder,
-                null
+                true, // (1)
+                CitiesDbHelper.Metadata.Tables.Cities.TABLE_NAME, // (2)
+                projection, // (3)
+                selection, // (4)
+                params, // (5)
+                null, // (6)
+                null, // (7)
+                sortOrder, // (8)
+                null // (9)
         );
     }
 
@@ -63,12 +74,5 @@ public class SQLiteCitiesDao implements CitiesDao {
         return query(
                 new String[]{CitiesDbHelper.Metadata.Tables.Cities.ACRONYM_COLUMN + " AS _id", CitiesDbHelper.Metadata.Tables.Cities.PROVINCE_COLUMN},
                 null, null, "_id");
-    }
-
-    public Cursor getCitiesFromProvince(String province){
-        return query(
-                new String[]{CitiesDbHelper.Metadata.Tables.Cities.NAME_COLUMN + " AS _id", CitiesDbHelper.Metadata.Tables.Cities.PROVINCE_COLUMN},
-                province, null, "_id");
-        //return query()
     }
 }

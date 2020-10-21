@@ -1,9 +1,11 @@
 package corso.java.fiscalcodecalculator.model;
 
+import java.io.Serializable;
+
 /**
  * Modello di rappresentazione di un comune italiano.
  */
-public class CityModel {
+public class CityModel implements Serializable {
     /**
      * Campo chiave.
      */
