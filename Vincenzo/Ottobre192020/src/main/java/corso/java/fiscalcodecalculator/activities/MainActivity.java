@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 try {
                     FiscalCodeCalculatorServiceContract service = new FiscalCodeCalculatorServiceImpl();
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY", Locale.ITALY);
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ITALY);
                     PersonalData data = new PersonalData.Builder()
                             .withBirthCityCode(txtBirthCity.getTag().toString())
                             .withBirthday(sdf.parse(txtBirthday.getText().toString()))
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         Calendar cal = Calendar.getInstance();
                         cal.set(year, month, day);
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy", Locale.ITALY);
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ITALY);
                         txtBirthday.setText(sdf.format(cal.getTime()));
                     }
                 });
