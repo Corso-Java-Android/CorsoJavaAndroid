@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Tris</string>
+    <string name="turno_di">Turno di:</string>
+    <string name="punteggio_di_x">Punteggio di X: </string>
+    <string name="punteggio_di_o">Punteggio di O: </string>
+    <string name="_0">0</string>
+    <string name="reset">Reset</string>
+    <string name="dot">.</string>
+</resources>
